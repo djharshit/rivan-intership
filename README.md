@@ -13,6 +13,7 @@ The list of websites are scraped -
 * [Amdocs Career](https://jobs.amdocs.com/search/?q=engineer)
 * [Epicor Careers](https://jobs.epicor.com/careers/SearchJobs/)
 * [Deloitte Jobs](https://usijobs.deloitte.com/careersUSI/SearchJobs)
+* [McAfee Jobs](https://careers.mcafee.com/search-jobs/results)
 
 #### Disclaimer
 
