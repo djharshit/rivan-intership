@@ -14,6 +14,7 @@ The list of websites are scraped -
 * [Epicor Careers](https://jobs.epicor.com/careers/SearchJobs/)
 * [Deloitte Jobs](https://usijobs.deloitte.com/careersUSI/SearchJobs)
 * [McAfee Jobs](https://careers.mcafee.com/search-jobs/results)
+* [Mphasis Ripplehire Jobs](https://mphasis.ripplehire.com/candidate/candidatejobsearch)
 
 #### Disclaimer
 
