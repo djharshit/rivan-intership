@@ -15,6 +15,7 @@ The list of websites are scraped -
 * [Deloitte Jobs](https://usijobs.deloitte.com/careersUSI/SearchJobs)
 * [McAfee Jobs](https://careers.mcafee.com/search-jobs/results)
 * [Mphasis Ripplehire Jobs](https://mphasis.ripplehire.com/candidate/candidatejobsearch)
+* [Accenture Jobs](https://www.accenture.com/api/sitecore/JobSearch/FindJobs')
 
 #### Disclaimer
 
