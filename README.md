@@ -16,6 +16,7 @@ The list of websites are scraped -
 * [McAfee Jobs](https://careers.mcafee.com/search-jobs/results)
 * [Mphasis Ripplehire Jobs](https://mphasis.ripplehire.com/candidate/candidatejobsearch)
 * [Accenture Jobs](https://www.accenture.com/api/sitecore/JobSearch/FindJobs')
+* [Quess Careers](https://fa-eumz-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/)
 
 #### Disclaimer
 
