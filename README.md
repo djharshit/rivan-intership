@@ -18,6 +18,7 @@ The list of websites are scraped -
 * [Accenture Jobs](https://www.accenture.com/api/sitecore/JobSearch/FindJobs')
 * [Quess Careers](https://fa-eumz-saasfaprod1.fa.ocs.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1/)
 * [Radixweb Careers](https://radixweb.com/payload/current-openings/4-joblisting.json)
+* [Walmart Global Tech India](https://one.Walmart.com/content/globaltechindia/en_in/results.html)
 
 #### Disclaimer
 
