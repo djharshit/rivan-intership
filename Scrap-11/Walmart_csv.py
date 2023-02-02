@@ -22,7 +22,7 @@ query = {
     'country': 'india',
     'keyword': None,
     'page': 1,
-    'results_per_Page': 500,
+    'results_per_Page': 100,
     'sort_by': 'SCORE',
     'gtsCareer': True
 }
@@ -35,7 +35,10 @@ l = []
 for i in data['results']:
     l.append(i['title'])
     l.append(i['job_code'])
-    l.append(i['job_function'])
+    try:
+        l.append(i['job_function'])
+    except KeyError:
+        l.append(None)
     l.append(i['preferred_qualifications_en'])
     l.append(i['min_qualifications_en'])
     l.append(i['min_experience'])

@@ -1,0 +1,28 @@
+{
+    "login": [
+        {
+            "name": "Indeed",
+            "url": "https://secure.indeed.com/auth",
+            "user_id": "whitematter@telegmail.com",
+            "password": "&AA45XzbwS,Zic2"
+        },
+        {
+            "name": "Linkedin",
+            "url": "https://www.linkedin.com/uas/login",
+            "user_id": "",
+            "password": ""
+        },
+        {
+            "name": "TriEdge",
+            "url": "https://triedge.in/",
+            "user_id": "greymatter@telegmail.com",
+            "password": "GcY9PP@nf7j4P"
+        },
+        {
+            "name": "AngelList",
+            "url": "https://angel.co/login",
+            "user_id": "hm0092374@gmail.com",
+            "password": "9r2xu!ypHABMA#4"
+        }
+    ]
+}

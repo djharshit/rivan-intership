@@ -5,16 +5,21 @@ import re
 import requests
 import logging
 import threading
+import time
 
+from datetime import date
 from unidecode import unidecode
-from job_meta_upload_script import JobsMeta
-from config import DEV_MAIL
+from job_meta_upload_script_v2 import JobsMeta
+from config_v2 import DEV_MAIL, AUTHOR_NO
+
 
 # Walmart Global Tech India
 class Company_Name:
     '''Creating Walmart class containing all the methods.'''
     def __init__(self, company):
-        logging.basicConfig(filename=f"{company}_logs.log",
+        filename = f'{company}_logs_{date.today().strftime("%d_%m_%Y")}.log'
+
+        logging.basicConfig(filename=filename,
                             format='%(asctime)s - %(lineno)s - %(levelname)s - %(message)s',
                             datefmt='%d/%m/%Y %I:%M:%S %p',
                             level=logging.INFO)
@@ -22,7 +27,7 @@ class Company_Name:
         self.logger_obj = logging.getLogger()
         self.thread_lock = threading.Lock()
 
-        self.job_meta_obj = JobsMeta(self.company, self.logger_obj, DEV_MAIL)
+        self.job_meta_obj = JobsMeta(self.company, self.logger_obj)
 
         session = requests.Session()
         base_url = 'https://one.Walmart.com/bin/careers/onprem/elsearch.json'
@@ -36,7 +41,7 @@ class Company_Name:
             'country': 'india',
             'keyword': None,
             'page': 1,
-            'results_per_Page': 10,
+            'results_per_Page': 500,
             'sort_by': 'SCORE',
             'gtsCareer': True
             }
@@ -47,7 +52,7 @@ class Company_Name:
 
         except Exception as resp_err:
             self.logger_obj.critical(f'Error while requesting and getting json data from {self.base_url} : {resp_err}')
-            self.job_meta_obj.exit_fun(DEV_MAIL)
+            self.job_meta_obj.exit_fun()
 
         self.count = int(self.json_data['numFound'])
         print('Total jobs found', self.count)
@@ -58,7 +63,7 @@ class Company_Name:
         c = 0
         for job in self.json_data['results']:
             apply_link_ = job['apply_link']
-            # print(93, c)
+            print(66, c)
 
             self.thread_lock.acquire()
             self.job_meta_obj.link_insertion(page_url, apply_link_)
@@ -71,11 +76,14 @@ class Company_Name:
             # job_url = page_job_urls[1]
 
             ex_stat = 'Not Existing'
-
+            c = 0
             for job in self.json_data['results']:
                 title_ = job['title']
                 job_code_ = job['job_code']
-                job_func_ = job['job_function']
+                try:
+                    job_func_ = job['job_function']
+                except:
+                    job_func_= None
                 quali_ = job['preferred_qualifications_en']
                 min_quali_ = job['min_qualifications_en']
                 min_exp_ = job['min_experience']
@@ -85,33 +93,22 @@ class Company_Name:
                 country_ = job['country']
                 apply_link_ = job['apply_link']
 
-                # try:
-                #     self.thread_lock.acquire()
-
-                # except Exception as th_lock_acq_err:
-                #     self.logger_obj.error(f'Error while acquiring thread lock : {th_lock_acq_err}')
-
-                # else:
-                self.job_meta_obj.upload_job_meta_upload(postauth=45,
+                self.job_meta_obj.upload_job_meta_upload(postauth=AUTHOR_NO,
                     postcontent='', posttitle=title_, companyname='Walmart',
                     location=f'{city_} {state_} {country_}', jobtype='Permanent',
-                    apply_url=apply_link_, qualification=','.join(quali_),
+                    job_url=apply_link_, qualification=quali_,
                     skills=min_quali_, experience=min_exp_, salary=None,
                     imp_info=f'Job Category: {job_func_}',
                     company_website='https://one.Walmart.com/content/globaltechindia/en_in/careers.html',
                     company_tagline='Save Money, Live Better',
-                    company_video='Not Available', company_twitter='@WiproCareers',
+                    company_video='Not Available', company_twitter='@Walmart',
                     job_logo=True, localFilePath='./logo/Walmart.png')
 
-                print(f'{apply_link_} Scraped')
+                print(f'{c} {apply_link_} Scraped')
 
                 self.job_meta_obj.change_status(apply_link_)
 
-                # ex_stat = 'Existing'
-                # break
-
-                # if ex_stat == 'Not Existing':
-                #     self.job_meta_obj.del_not_existing(apply_link_)
+                c += 1
 
         except Exception as scr_err:
             self.logger_obj.error(f'Error in scraping for {apply_link_} : {scr_err}')
@@ -132,7 +129,7 @@ class Company_Name:
         except Exception as st_tb_mul_thd_err:
             self.logger_obj.critical(f'Error while inserting links in status table using multithreading : {st_tb_mul_thd_err}')
             print(f'Error while inserting links in status table using multithreading : {st_tb_mul_thd_err}')
-            self.job_meta_obj.exit_fun(DEV_MAIL)
+            self.job_meta_obj.exit_fun()
 
         else:
             try:
@@ -149,20 +146,25 @@ class Company_Name:
 
             except Exception as job_scp_mt_err:
                 self.logger_obj.critical(f'Error while inserting links in trial_job_meta using multithreading : {job_scp_mt_err}')
-                self.job_meta_obj.exit_fun(DEV_MAIL)
+                self.job_meta_obj.exit_fun()
 
             else:
                 self.job_meta_obj.delete_temp_table()
 
 if __name__ == '__main__':
+    start_time = time.time()
+
     obj = Company_Name('Walmart')
     obj.job_meta_obj.create_sc_stat_table()
     obj.multi_thread_updated()
 
-    if os.stat(f'{obj.company}_logs.log').st_size != 0:
-        obj.job_meta_obj.mail_log_file('sonymax@effobe.com')  # aliashhar3@gmail.com
+    end_time = time.time()
+    print('Time taken:', round(end_time-start_time, 2))
+
+    if os.stat(f'{obj.company}_logs_{date.today().strftime("%d_%m_%Y")}.log').st_size!=0:
+        obj.job_meta_obj.mail_log_file()
         print('Log file mailed')
 
     else:
         print('Log file is empty')
-
+        logging.shutdown()

@@ -28,17 +28,17 @@ linter:
 
 #   # remark-lint example. See https://help.sider.review/tools/markdown/remark-lint
 #   remark_lint:
-#     root_dir: project/
-#     dependencies:
-#       - my-remark-plugin@2
-#     npm_install: false
-#     target: [docs/]
-#     ext: "md,markdown"
-#     rc-path: config/.remarkrc
-#     ignore-path: config/.remarkignore
-#     use:
-#       - remark-lint-file-extension
-#       - remark-lint-no-heading-punctuation
+    root_dir: project/
+    dependencies:
+      - my-remark-plugin@2
+    npm_install: false
+    target: [docs/]
+    ext: "md,markdown"
+    rc-path: config/.remarkrc
+    ignore-path: config/.remarkignore
+    use:
+      - remark-lint-file-extension
+      - remark-lint-no-heading-punctuation
 
 #   # ShellCheck example. See https://help.sider.review/tools/shellscript/shellcheck
 #   shellcheck:
